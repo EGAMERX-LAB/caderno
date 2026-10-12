@@ -296,6 +296,12 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--pri); outli
 .escolha { display: flex; flex-direction: column; gap: 8px; }
 .escolha .btn { justify-content: flex-start; }
 
+/* Aviso de instalação no iPhone */
+.instalar { border: 2px solid var(--pri); }
+.instalar ol { margin: 8px 0; padding-left: 22px; }
+.instalar li { margin-bottom: 6px; }
+.ic-ios { width: 20px; height: 20px; vertical-align: -4px; color: var(--pri-texto); }
+
 /* Marca */
 .logo-sobre { display: block; width: 140px; height: 140px; border-radius: 50%; margin: 4px auto 12px; box-shadow: 0 0 18px rgba(251, 109, 2, .35); }
 .sobre { text-align: center; }

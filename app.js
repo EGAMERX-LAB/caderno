@@ -2,7 +2,7 @@
 /* Caderno do Professor — desenvolvido por EG Gamer X
    Versão de teste: tudo fica salvo só no aparelho (localStorage). */
 
-const VERSAO_APP = '0.5 (teste)';
+const VERSAO_APP = '0.6 (teste)';
 const CHAVE = 'caderno_prof_v1';
 const NIVEIS = [
   { v: 1, nome: 'Precisa de apoio', curto: 'Apoio' },
@@ -356,6 +356,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalAbert
 
 /* ---------- Início ---------- */
 
+// No iPhone, aberto pelo Safari (ainda não instalado na Tela de Início): ensina a instalar.
+function avisoInstalarIphone() {
+  const instalado = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+  if (!NO_IOS || instalado) return '';
+  const icCompartilhar = `<svg class="ic-ios" viewBox="0 0 24 24"><path d="M12 15V3M8 6.5 12 3l4 3.5M7 10H5.5v10.5h13V10H17"/></svg>`;
+  return `<div class="cartao instalar">
+    <h3>Instale o app no seu iPhone</h3>
+    <ol>
+      <li>Toque em <b>Compartilhar</b> ${icCompartilhar} na barra do Safari.</li>
+      <li>Role o menu e toque em <b>Adicionar à Tela de Início</b>.</li>
+      <li>Toque em <b>Adicionar</b>.</li>
+    </ol>
+    <p class="sub">Depois abra sempre pelo ícone do caderno. Cadastre as turmas só depois de instalar:
+    o que for digitado aqui no Safari não aparece no app instalado.</p>
+  </div>`;
+}
+
 function telaInicio() {
   const h = hoje(), c = db.config;
   const hora = new Date().getHours();
@@ -364,7 +381,7 @@ function telaInicio() {
   let html = `<section class="boas-vindas">
     <p class="saudacao">${saudacao}${nome}!</p>
     <p class="data-hoje">${SEMANA[new Date().getDay()]}, ${fmtData(h)} · ${bimestreAtual()}º bimestre</p>
-  </section>`;
+  </section>${avisoInstalarIphone()}`;
 
   if (!db.turmas.length) {
     html += `<div class="cartao destaque">
